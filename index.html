@@ -1,23 +1,464 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+  <style>
+    /* 기본 스타일 재설정 */
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.7; /* 가독성을 위해 높임 */
+      margin: 0;
+      padding: 0;
+      background: #f4f7f6; /* 부드러운 배경색 */
+      color: #333;
+      font-size: 16px;
+    }
+    header, section, footer {
+      max-width: 960px; /* 최대 너비 확장 */
+      margin: 25px auto;
+      padding: 30px; /* 패딩 증가 */
+      background: #ffffff;
+      border-radius: 12px; /* 둥근 모서리 */
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* 부드러운 그림자 */
+    }
+    h1, h2, h3, h4 { color: #004d40; /* 딥 그린 톤 */ line-height: 1.4; }
+    h1 { font-size: 2.5em; text-align: center; margin-bottom: 0.5em; }
+    h2 { font-size: 2em; border-bottom: 3px solid #e0f2f1; padding-bottom: 10px; margin-top: 40px; }
+    h3 { font-size: 1.5em; color: #26a69a; margin-top: 25px; }
+    p { margin-bottom: 15px; }
+    ul, ol { padding-left: 20px; margin-bottom: 15px; }
+    li { margin-bottom: 8px; }
+    strong { font-weight: 700; color: #004d40; }
+    a { color: #00796b; text-decoration: none; transition: color 0.3s ease; }
+    a:hover { text-decoration: underline; color: #004d40; }
+
+    /* CTA 버튼 스타일 */
+    .btn-cta {
+      display: block; /* 블록 요소로 변경하여 넓게 사용 */
+      max-width: 300px; /* 최대 너비 지정 */
+      margin: 20px auto; /* 중앙 정렬 */
+      padding: 15px 30px;
+      background: #00796b; /* 주색상 (그린 톤) */
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1em;
+      border-radius: 30px;
+      box-shadow: 0 5px 12px rgba(0, 121, 107, 0.3);
+      transition: all 0.3s ease;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-cta:hover {
+      background: #004d40;
+      box-shadow: 0 7px 15px rgba(0, 121, 107, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* 네비게이션 스타일 */
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+      background: #e0f2f1; /* 네비게이션 배경색 */
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: -10px; /* 헤더와 붙이기 위해 마이너스 마진 */
+    }
+    nav li {
+      display: inline-block;
+      margin: 0 10px;
+    }
+    nav a {
+      color: #004d40;
+      font-weight: 500;
+      padding: 5px 10px;
+      display: inline-block;
+    }
+
+    /* 섹션별 스타일 */
+    .content-card {
+      background: #fcfcfc;
+      border-radius: 8px;
+      padding: 25px;
+      margin-top: 20px;
+      border: 1px solid #e0e0e0;
+    }
+    .highlight-box {
+      background: #fff3e0; /* 연한 주황색 계열로 강조 */
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 5px solid #ff9800;
+      margin: 20px 0;
+    }
+
+    /* 테이블 스타일 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    th, td {
+      border: 1px solid #eee;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background: #e0f2f1;
+      color: #004d40;
+      font-weight: 700;
+    }
+    td:first-child { font-weight: 500; }
+
+    /* 폼 스타일 */
+    form { background: #f9f9f9; padding: 25px; border-radius: 8px; border: 1px solid #eee; }
+    form label { display: block; margin-bottom: 5px; font-weight: 700; color: #004d40; }
+    form input[type="text"], form input[type="tel"], form select, form textarea {
+      width: calc(100% - 20px); /* 패딩 고려 */
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+    form textarea { resize: vertical; }
+    form .form-row { display: flex; gap: 20px; }
+    form .form-row > div { flex: 1; }
+
+    /* 반응형 디자인 */
+    @media(max-width: 768px) {
+      body { font-size: 15px; }
+      header, section, footer { margin: 15px auto; padding: 20px; }
+      nav li { display: block; margin: 5px 0; }
+      .form-row { flex-direction: column; gap: 0; }
+    }
+    @media(max-width: 480px) {
+      h1 { font-size: 2em; }
+      h2 { font-size: 1.5em; }
+      .btn-cta { width: 100%; }
+    }
+  </style>
+
+  <!-- Schema.org LocalBusiness 마크업(JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MovingCompany",
+    "name": "전국 부분이사 전문 서비스",
+    "description": "원룸, 소형 1인 가구 이사에 최적화된 부분 포장이사 서비스 제공. 전국 주요 지역 비용 비교 및 견적 상담.",
+    "url": "https://domain.com/partial-move",
+    "telephone": "1661-1234",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "대한민국 전국",
+      "addressLocality": "대한민국",
+      "addressRegion": "KR",
+      "postalCode": "00000"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "대한민국"
+    },
+    "priceRange": "₩₩",
+    "review": [
+      {
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "김*호"},
+        "reviewBody": "짐이 많지 않아 부분 이사를 선택했는데, 꼼꼼하게 포장해주셔서 만족했습니다.",
+        "reviewRating": {"@type": "Rating", "ratingValue": "5"}
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <header>
+    <h1>부분이사 비용 절약, 이젠 전문가에게 맡기세요</h1>
+    <p>원룸, 1인 가구, 짐 적은 투룸 맞춤형 포장이사/반포장이사 전문. 2026년 최신 가격 정보 제공.</p>
+    <button class="btn-cta" onclick="location.href='#contact'">무료 견적 상담 받기</button>
+  </header>
+
+  <nav aria-label="페이지 내 이동">
+    <ul>
+      <li><a href="#definition">부분이사란?</a></li>
+      <li><a href="#service-types">서비스 유형별 안내</a></li>
+      <li><a href="#pricing">비용 분석 및 가이드</a></li>
+      <li><a href="#area">서비스 가능 지역</a></li>
+      <li><a href="#checklist">이사 체크리스트</a></li>
+      <li><a href="#contact">견적 문의</a></li>
+    </ul>
+  </nav>
+
+  <section id="definition">
+    <span id="definition-anchor" class="anchor"></span>
+    <h2>1. 부분이사란 무엇이며, 왜 필요한가요?</h2>
+    <div class="content-card">
+      <p>부분이사(Partial Moving)는 포장이사와 일반이사 사이의 중간 형태로, <strong>이사할 짐이 적거나 1인 가구, 원룸/투룸 이사에 최적화된 서비스</strong>를 의미합니다. 짐 전체를 포장하고 운반하는 일반 포장이사와 달리, 고객이 직접 짐 일부를 포장하고 나머지 큰 짐(가구, 가전)만 전문가에게 맡겨 비용 효율을 극대화하는 방식입니다.</p>
+
+      <h3>1-1. 부분이사 vs. 포장이사 vs. 반포장이사 비교</h3>
+      <p>부분이사는 특히 원룸이나 오피스텔에 거주하는 1인 가구의 증가 추세에 맞춰 2026년에도 수요가 급증하고 있습니다. 아래 표를 통해 각 이사 유형의 차이점을 명확히 이해할 수 있습니다.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>부분이사 (소형/용달이사)</th>
+            <th>반포장이사</th>
+            <th>포장이사</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>적합 대상</td>
+            <td>1인 가구, 원룸, 짐 적은 투룸</td>
+            <td>살림이 많지 않은 2인 가구, 신혼부부</td>
+            <td>일반 아파트/빌라 이사, 짐이 많은 경우</td>
+          </tr>
+          <tr>
+            <td>포장 주체</td>
+            <td>고객 직접 포장 (큰 짐만 업체 담당)</td>
+            <td>출발지 포장: 업체 / 도착지 정리: 고객</td>
+            <td>출발지 포장~도착지 정리: 업체 전담</td>
+          </tr>
+          <tr>
+            <td>장점</td>
+            <td>가장 저렴, 원하는 짐만 선택 운반</td>
+            <td>시간 절약, 비용과 편의성 균형</td>
+            <td>가장 편리함, A부터 Z까지 모두 해결</td>
+          </tr>
+          <tr>
+            <td>단점</td>
+            <td>노동력 투입 필요, 파손 위험 관리 필요</td>
+            <td>도착지 정리 부담</td>
+            <td>가장 비쌈</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>1-2. 2026년 이사 시장 동향과 부분이사</h3>
+      <p>통계청 자료에 따르면 1인 가구 비율은 2026년에도 지속적으로 증가하여 전체 가구의 40%에 육박할 것으로 예상됩니다. 이러한 사회적 변화는 소형 이사 시장의 성장을 가속화하고 있으며, 부분이사 서비스의 전문화 및 다양화를 촉진하고 있습니다. 특히 2026년에는 '짐 품목별 보험 가입', '친환경 포장재 사용' 등 서비스 품질 향상에 대한 소비자 요구가 높아지고 있습니다.</p>
+      <div class="highlight-box">
+        <h4>잠깐! 부분이사 체크포인트</h4>
+        <p>이사할 짐이 적더라도, 대형 가구나 가전제품(냉장고, 세탁기, 침대 등)은 반드시 전문가의 도움을 받아야 안전합니다. 부분이사 견적을 받을 때 큰 짐 목록을 정확히 전달하는 것이 중요합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="service-types">
+    <span id="service-types-anchor" class="anchor"></span>
+    <h2>2. 부분이사 서비스 유형별 상세 가이드</h2>
+    <div class="content-card">
+      <p>부분이사는 단순히 짐이 적은 이사를 넘어, 고객의 상황과 예산에 맞춰 다양한 형태로 제공됩니다. 고객님의 이사 환경에 가장 적합한 유형을 선택해 보세요.</p>
+
+      <h3>2-1. 원룸/오피스텔 이사: 1인 가구에 최적화된 선택</h3>
+      <p>1인 가구의 짐은 주로 침대, 책상, 의류 등으로 구성되어 있습니다. 원룸 이사는 포장재를 최소화하고, 운송 시간 단축에 중점을 둡니다. 2026년에는 원룸 이사를 위한 '스마트 무빙 패키지'가 도입되어, 짐 정리부터 가구 배치까지 원스톱 서비스를 제공하는 업체들이 늘고 있습니다.</p>
+      <ul>
+        <li><strong>용달 부분이사:</strong> 1톤 용달 트럭을 이용하며, 고객이 모든 짐을 포장 및 운반하고 기사님은 운전만 하는 방식입니다. 짐이 정말 적고, 남성 고객이 직접 짐을 운반할 수 있을 때 가장 저렴합니다.</li>
+        <li><strong>반포장 부분이사:</strong> 고객이 잔짐을 미리 포장하면, 업체가 큰 가구와 가전을 포장 및 운반하고 도착지에서 큰 짐만 배치해 줍니다. 합리적인 가격으로 편리성을 높인 인기 서비스입니다.</li>
+      </ul>
+
+      <h3>2-2. 특수 물품 이사: 가구, 가전, 피아노 등</h3>
+      <p>부분이사는 이사 전체가 아닌 특정 짐만 옮길 때도 활용됩니다. 예를 들어, 중고 가구를 구매했거나, 이사 시기가 달라 가구만 보관 장소로 이동해야 할 때 유용합니다. 특히 피아노, 냉장고, 세탁기 등 전문 장비가 필요한 특수 짐은 반드시 전문업체를 이용해야 합니다.</p>
+      <ul>
+        <li><strong>냉장고/세탁기 이전 설치:</strong> 가전제품은 내부 부품 보호 및 설치 시 전문 기술이 필요합니다. 업체 선정 시 설치 및 A/S 여부를 꼭 확인해야 합니다.</li>
+        <li><strong>가구 이동:</strong> 고가의 원목 가구나 해체 후 재조립이 필요한 가구는 반드시 전문팀의 손길이 필요합니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <span id="pricing-anchor" class="anchor"></span>
+    <h2>3. 2026년 부분이사 비용 분석 및 가격 절약 팁</h2>
+    <div class="content-card">
+      <p>부분이사 비용은 일반 포장이사에 비해 저렴하지만, 견적 산정 요소가 다양합니다. 이사 시기, 짐의 양, 작업 인원 수, 이동 거리, 옵션 서비스(사다리차, 에어컨 설치 등)에 따라 가격이 크게 달라질 수 있습니다.</p>
+
+      <h3>3-1. 주요 비용 결정 요인</h3>
+      <div class="highlight-box">
+        <h4>부분이사 견적의 3대 핵심 변수</h4>
+        <ol>
+          <li><strong>짐의 양(부피) 및 종류:</strong> 1톤 용달 트럭을 기준으로, 짐이 초과되면 1.2톤이나 2.5톤으로 변경되며 가격이 상승합니다.</li>
+          <li><strong>이동 거리 및 작업 환경:</strong> 장거리 이사(예: 서울-부산)는 거리에 비례하여 비용이 증가하며, 사다리차 사용 여부(층수)에 따라 추가 비용이 발생합니다.</li>
+          <li><strong>작업 인원 수 및 서비스 수준:</strong> 고객이 직접 짐을 운반하는 용달 이사는 1인 기사 비용만 발생하지만, 반포장이사로 인력 추가 시 비용이 상승합니다.</li>
+        </ol>
+      </div>
+
+      <h3>3-2. 부분이사 평균 비용 테이블 (2026년 예상)</h3>
+      <p>아래 표는 2026년 상반기 기준, 수도권 지역에서 평일 오전에 진행되는 평균적인 부분이사 비용 예시입니다. 정확한 견적은 방문 견적을 통해 확인해야 합니다.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>이사 유형</th>
+            <th>짐 규모 (1톤 기준)</th>
+            <th>평균 비용 (평일)</th>
+            <th>주요 작업 내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>원룸 용달이사</td>
+            <td>1톤 트럭 (가구 3~4개)</td>
+            <td>15만 원 ~ 25만 원</td>
+            <td>운반만 지원 (고객 포장/정리)</td>
+          </tr>
+          <tr>
+            <td>원룸 반포장이사</td>
+            <td>1톤 트럭</td>
+            <td>25만 원 ~ 35만 원</td>
+            <td>가구/가전 포장, 운반, 배치 (잔짐 고객)</td>
+          </tr>
+          <tr>
+            <td>투룸 반포장이사</td>
+            <td>1.5톤 ~ 2톤 트럭</td>
+            <td>40만 원 ~ 60만 원</td>
+            <td>가구/가전 포장, 운반, 배치 (잔짐 고객)</td>
+          </tr>
+          <tr>
+            <td>가구/가전 단품 이사</td>
+            <td>운반만</td>
+            <td>10만 원 ~ 20만 원</td>
+            <td>특정 물품 이동 및 설치 지원</td>
+          </tr>
+        </tbody>
+      </table>
+      <p><em>* 주말 및 손 없는 날(길일), 성수기(3, 9월)에는 비용이 20~30% 할증될 수 있습니다.</em></p>
+
+      <h3>3-3. 비용 절약을 위한 팁</h3>
+      <ul>
+        <li><strong>미리 짐 정리:</strong> 불필요한 짐은 버리거나 당근마켓/중고나라를 통해 처분하세요. 짐이 줄어들수록 트럭 크기가 줄어들어 비용이 절감됩니다.</li>
+        <li><strong>비수기 활용:</strong> 1~2월, 7~8월은 이사 비수기입니다. 이 기간에 이사하면 성수기 대비 저렴한 가격으로 서비스를 이용할 수 있습니다.</li>
+        <li><strong>사다리차 사용 최소화:</strong> 1층이나 저층(엘리베이터 이용) 이사 시 사다리차 비용이 절감됩니다.</li>
+        <li><strong>꼼꼼한 업체 비교:</strong> 최소 3곳 이상의 업체에서 견적을 받고 서비스 내용을 비교하세요.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="area">
+    <span id="area-anchor" class="anchor"></span>
+    <h2>4. 전국 부분이사 서비스 가능 지역 및 네트워크망</h2>
+    <div class="content-card">
+      <p>전국 주요 도시에서 신속하게 부분이사 서비스를 이용할 수 있습니다. 아래 목록은 '부분이사' 키워드와 함께 가장 많이 검색되는 주요 지역입니다. 저희 네트워크는 전국 단위로 구축되어 있어 장거리 이사도 효율적으로 지원합니다.</p>
+
+      <h3>4-1. 수도권 지역 (서울/경기/인천)</h3>
+      <p>서울의 경우 원룸 밀집 지역인 관악구(신림동, 봉천동), 강남구(역삼동, 논현동), 마포구(홍대, 신촌), 송파구(잠실, 문정동) 등에서 부분이사 수요가 가장 높습니다. 경기도는 수원시(인계동, 영통구), 고양시(일산), 성남시(분당, 판교), 용인시(수지, 기흥) 등 1인 가구 비율이 높은 신도시에 집중되어 있습니다. 인천은 부평구, 연수구, 미추홀구 등에서 부분이사 문의가 많습니다.</p>
+
+      <h3>4-2. 광역시 및 지방 주요 도시</h3>
+      <p>부산 지역은 해운대구, 동래구, 부산진구, 남구 등에서 부분이사 서비스가 활발합니다. 대구는 수성구, 달서구, 북구 일대가 주요 서비스 지역이며, 대전은 유성구(궁동, 봉명동)와 서구(둔산동)가 주요 거점입니다. 그 외에도 광주, 울산, 세종 등 전국 주요 광역시에서 부분이사 네트워크를 운영하고 있습니다.</p>
+
+      <h3>4-3. 기타 전국 지역 키워드 (총 30개 이상)</h3>
+      <p>강원도: 춘천, 원주, 강릉. 충청북도: 청주, 충주. 충청남도: 천안, 아산, 공주. 경상북도: 포항, 경주, 구미, 안동. 경상남도: 창원, 진주, 김해, 양산. 전라북도: 전주, 군산, 익산. 전라남도: 순천, 여수, 목포. 제주도: 제주시, 서귀포시. 이처럼 전국 어디든 원하시는 날짜와 시간에 맞춰 부분이사 전문가를 연결해 드립니다.</p>
+    </div>
+  </section>
+
+  <section id="checklist">
+    <span id="checklist-anchor" class="anchor"></span>
+    <h2>5. 이사 전후 완벽 대비! 부분이사 체크리스트 (2026년 업데이트)</h2>
+    <div class="content-card">
+      <p>성공적인 부분이사를 위해 사전에 꼼꼼한 준비가 필요합니다. 특히 짐 정리를 직접 해야 하는 부분이사 특성상, 미리 체크리스트를 확인하여 이사 당일 혼란을 최소화해야 합니다.</p>
+
+      <h3>5-1. 이사 2주 전: 사전 준비 및 계약 단계</h3>
+      <ul>
+        <li><strong>견적 비교 및 계약:</strong> 최소 3곳 이상의 업체에서 견적을 받고 서비스 범위, 보험 가입 여부 등을 확인합니다. 이사 날짜가 길일(손 없는 날)이라면 미리 예약해야 합니다.</li>
+        <li><strong>짐 정리 및 폐기물 처리:</strong> 불필요한 짐은 미리 버립니다. 대형 폐기물 스티커를 미리 발급받아 처리합니다.</li>
+        <li><strong>중요 서류 및 귀중품 별도 보관:</strong> 신분증, 현금, 통장, 인감 등 중요 물품은 이삿짐에 섞이지 않도록 직접 보관합니다.</li>
+        <li><strong>아파트/빌라 관리사무소 연락:</strong> 사다리차 사용 가능 여부, 엘리베이터 사용 예약(수수료 발생 가능), 이사 시간 조율 등을 미리 확인합니다.</li>
+      </ul>
+
+      <h3>5-2. 이사 1주 전: 실질적 포장 및 행정 업무</h3>
+      <ul>
+        <li><strong>잔짐 포장 시작:</strong> 부분이사 시 고객이 직접 해야 하는 잔짐 포장을 시작합니다. (옷, 주방용품, 책 등) 파손 위험이 있는 물품은 신문지나 뽁뽁이로 꼼꼼하게 포장하고 박스에 '파손주의'라고 표기합니다.</li>
+        <li><strong>가전제품 분리:</strong> 세탁기 물 빼기, 냉장고 코드 분리 및 내부 정리, 에어컨 분리 설치 여부 확인 등을 진행합니다.</li>
+        <li><strong>공과금 정산:</strong> 도시가스 요금 정산, 전기세, 수도세 등 공과금 납부 내역을 확인하고 이사 당일 최종 정산합니다.</li>
+        <li><strong>전입 신고 및 주소 변경:</strong> 전입 신고는 이사 후 14일 이내에 해야 합니다. 우편물 주소 변경 서비스(KT Moving, 우체국 등)를 미리 신청합니다.</li>
+      </ul>
+
+      <h3>5-3. 이사 당일: 현장 관리 및 최종 확인</h3>
+      <ul>
+        <li><strong>짐 목록 확인:</strong> 업체 직원 도착 후 짐 목록을 확인하고, 파손 위험 물품을 재차 고지합니다.</li>
+        <li><strong>새 집 확인:</strong> 이사 전 집 상태(벽지, 바닥 등)를 사진으로 찍어두고, 이사 후 물품이 제대로 배치되었는지 확인합니다.</li>
+        <li><strong>추가 요청 사항 전달:</strong> 혹시 모를 추가 요청 사항을 현장에서 바로 전달합니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="trust">
+    <span id="trust-anchor" class="anchor"></span>
+    <h2>6. 신뢰성 있는 정보 출처 및 관련 법규</h2>
+    <div class="content-card">
+      <p>부분이사를 포함한 모든 이사 서비스 이용 시에는 신뢰성 있는 정보를 참고하여 소비자의 권리를 보호받는 것이 중요합니다. 아래는 이사와 관련된 공인된 외부 정보 출처입니다.</p>
+      <ul>
+        <li><strong>통계청 1인 가구 통계:</strong> 1인 가구 증가 추세 및 인구 구조 변화는 부분이사 수요의 증가 배경을 이해하는 데 도움이 됩니다. (<a href="https://kostat.go.kr">통계청</a>)</li>
+        <li><strong>한국소비자원 피해 구제 정보:</strong> 이사 서비스 이용 시 발생할 수 있는 피해 유형과 구제 절차를 확인할 수 있습니다. (<a href="https://www.kca.go.kr">한국소비자원</a>)</li>
+        <li><strong>국토교통부 이사 화물 관련 법규:</strong> 화물자동차 운수사업법 등에 따른 이사 서비스 제공 기준을 알 수 있습니다. (<a href="http://www.molit.go.kr">국토교통부</a>)</li>
+        <li><strong>정부 24 전입신고 가이드:</strong> 이사 후 반드시 처리해야 할 행정 업무(전입신고)에 대한 상세 안내를 제공합니다. (<a href="https://www.gov.kr">정부24</a>)</li>
+        <li><strong>나무위키 '이사' 문서:</strong> 이사 유형, 준비물, 관련 상식 등 폭넓은 정보를 참고할 수 있습니다. (<a href="https://namu.wiki/w/%EC%9D%B4%EC%82%AC">나무위키</a>)</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="contact">
+    <span id="contact-anchor" class="anchor"></span>
+    <h2>7. 부분이사 실시간 견적 상담 문의</h2>
+    <div class="content-card">
+      <p>정확하고 투명한 견적을 위해 고객님의 이사 정보를 상세히 입력해 주세요. 입력하신 정보를 바탕으로 가장 적합한 부분이사 서비스를 제안해 드립니다. 견적 문의는 24시간 언제든 가능합니다.</p>
+      <form action="/submit" method="POST" style="max-width:700px; margin:auto;">
+        <div class="form-row">
+          <div>
+            <label for="name">이름<span style="color:red;">*</span></label>
+            <input type="text" id="name" name="name" required placeholder="예: 홍길동" />
+          </div>
+          <div>
+            <label for="phone">연락처<span style="color:red;">*</span></label>
+            <input type="tel" id="phone" name="phone" required placeholder="010-1234-5678" pattern="[0-9\-]+" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="move-date">이사 희망 날짜<span style="color:red;">*</span></label>
+            <input type="date" id="move-date" name="move_date" required />
+          </div>
+          <div>
+            <label for="move-type">이사 서비스 유형<span style="color:red;">*</span></label>
+            <select id="move-type" name="move_type" required>
+              <option value="">선택하세요</option>
+              <option value="원룸 반포장이사">원룸 반포장이사</option>
+              <option value="투룸 반포장이사">투룸 반포장이사</option>
+              <option value="용달 부분이사">용달 부분이사</option>
+              <option value="가구/가전 단품 이사">가구/가전 단품 이사</option>
+              <option value="사무실 소형 이사">사무실 소형 이사</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label for="departure-area">출발지 (예: 서울시 관악구)</label>
+            <input type="text" id="departure-area" name="departure_area" required placeholder="예: 서울시 관악구 신림동" />
+          </div>
+          <div>
+            <label for="arrival-area">도착지 (예: 경기도 수원시)</label>
+            <input type="text" id="arrival-area" name="arrival_area" required placeholder="예: 경기도 수원시 영통구" />
+          </div>
+        </div>
+        <label for="item-list">주요 짐 목록 (구체적으로 작성 시 정확한 견적 가능)</label>
+        <textarea id="item-list" name="item_list" rows="3" placeholder="예: 냉장고 1개, 침대 1개, TV, 책장 1개, 박스 10개 등"></textarea>
+
+        <label for="move-size">짐 규모<span style="color:red;">*</span></label>
+        <select id="move-size" name="move_size" required>
+          <option value="">선택하세요</option>
+          <option value="1톤 (원룸, 1인 가구)">1톤 (원룸, 1인 가구)</option>
+          <option value="1.5톤 (원룸+a, 2인 가구)">1.5톤 (원룸+a, 2인 가구)</option>
+          <option value="2톤 이상 (짐 많은 투룸 이상)">2톤 이상 (짐 많은 투룸 이상)</option>
+        </select>
+
+        <label for="message">추가 요청 사항</label>
+        <textarea id="message" name="message" rows="4" placeholder="예: 사다리차 이용 필요, 엘리베이터 유무, 짐 보관 기간 등"></textarea>
+
+        <button type="submit" class="btn-cta">견적 문의 보내기</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 부분이사 전문 서비스. All rights reserved.</p>
+    <p>고객센터: <a href="tel:16611234">1661-1234</a> | 이메일: <a href="mailto:contact@domain.com">contact@domain.com</a></p>
+    <p>사업자등록번호: 123-45-67890 | 주소: 서울특별시 강남구 테헤란로 123</p>
+  </footer>
+
+  
